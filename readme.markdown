@@ -5,8 +5,6 @@ metadata to even the most unstructured of JSON documents.
 
 # Example
 
-**OOPS**: the object wrapping appears to be wrong
-
     > var Grandson = require('./grandson');
     > var unwrapped = {array: [3, 2, 1], obj: {"x": 1, "y": 2}};
     > console.log(JSON.stringify(unwrapped, null, 2));
@@ -53,8 +51,8 @@ metadata to even the most unstructured of JSON documents.
 
 # TODO
 
-* Fix object wrapping if it's indeed wrong (including broken test)
-* Test array wrapping
+* Unwrap
+* Extract metadata
 * More tests
 
 # License
