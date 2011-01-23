@@ -1,20 +1,61 @@
-# Trustache
+# Grandson
 
-A poor man's mustache.
-
-# Why?
-
-It's an experiment.
-I find myself wanting to roll my own code to process what's in the curly brace.
-Perhaps I want to have dots to indicate member variables.
-I'd also like to be able to copy and paste it.
+Wraps deserialized JSON objects, doubling their depth, for adding
+metadata to even the most unstructured of JSON documents.
 
 # Example
 
-    var me = {"name": "Ben", "greeting": "Hi"};
-    document.write(Trustache.render("{{ greeting }} I'm {{ name }}"), function(s) {
-      return encodeURI(me[s]);
-    });
+**OOPS**: the object wrapping appears to be wrong
+
+    > var Grandson = require('./grandson');
+    > var unwrapped = {array: [3, 2, 1], obj: {"x": 1, "y": 2}};
+    > console.log(JSON.stringify(unwrapped, null, 2));
+    {
+      "array": [
+        3,
+        2,
+        1
+      ],
+      "obj": {
+        "x": 1,
+        "y": 2
+      }
+    }
+    > var wrapped = Grandson.wrap(unwrapped, "_");
+    > console.log(JSON.stringify(wrapped, null, 2));
+    {
+      "_": {
+        "array": {
+          "_": [
+            {
+              "_": 3
+            },
+            {
+              "_": 2
+            },
+            {
+              "_": 1
+            }
+          ]
+        },
+        "obj": {
+          "_": {
+            "x": {
+              "_": 1
+            },
+            "y": {
+              "_": 2
+            }
+          }
+        }
+      }
+    }
+
+# TODO
+
+* Fix object wrapping if it's indeed wrong (including broken test)
+* Test array wrapping
+* More tests
 
 # License
 
